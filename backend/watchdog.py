@@ -23,11 +23,12 @@ class WatchdogService:
                         self.last_value = vibration
                         self.last_change_time = time.time()
                     elif time.time() - self.last_change_time > WATCHDOG_STALE_TIMEOUT:
-                        print("🚨 Data stale for >2 minutes — restarting Flask process.")
+                        print("Data stale for >2 minutes — restarting Flask process.")
                         os._exit(1)
                 else:
-                    print("⚠️ Missing 'vibration' in watchdog data")
+                    print("Missing 'vibration' in watchdog data")
             except Exception as exc:
-                print(f"❌ Watchdog fetch error: {exc}")
+                print(f"Watchdog fetch error: {exc}")
 
             time.sleep(WATCHDOG_INTERVAL)
+
