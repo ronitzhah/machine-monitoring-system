@@ -100,7 +100,7 @@ class StateManager:
             today = datetime.now(APP_TIMEZONE).strftime("%Y-%m-%d")
 
             if last_reset_date != today:
-                print("🔁 Missed daily reset detected during startup. Resetting daily metrics.")
+                print("Missed daily reset detected during startup. Resetting daily metrics.")
                 self.state.total_uptime = 0
                 self.state.total_downtime = 0
                 self.state.status_uptime_working = 0
@@ -140,10 +140,10 @@ class StateManager:
                 self.state.machine_was_on = False
 
                 if self.state.current_downtime is None:
-                    print("⚠️ Machine is OFF at startup — starting downtime.")
+                    print("Machine is OFF at startup — starting downtime.")
                     self.state.current_downtime = DowntimeEntry(start=int(now))
 
-        print("✅ State restored from file.")
+        print("State restored from file.")
 
     def append_history_entry(self, entry: dict[str, Any]) -> None:
         history = []
