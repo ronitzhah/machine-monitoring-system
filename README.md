@@ -218,11 +218,5 @@ Use environment variables instead.
 
 ---
 
-# License
-
-MIT License
-
----
-
 # Author
 Ronit Shah
