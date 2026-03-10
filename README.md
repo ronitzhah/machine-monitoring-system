@@ -6,26 +6,6 @@ This system is designed for **factory machines, predictive maintenance, and prod
 
 ---
 
-# System Architecture
-
-
-ESP32 + ADXL345 Sensor
-│
-▼
-MQTT Broker
-│
-▼
-Python Monitoring Backend
-│
-├── Flask Dashboard
-├── Downtime Analytics
-├── Telegram Alerts
-├── Excel Logging
-└── Daily Machine Reports
-
-
----
-
 # Project Features
 
 ### Sensor Firmware (ESP32)
@@ -110,44 +90,6 @@ Home
 Downtime Logs
 History
 
-
----
-
-# Project Structure
-
-
-machine-monitoring-system
-│
-├── backend/
-│ ├── app.py
-│ ├── config.py
-│ ├── monitoring.py
-│ ├── mqtt_client.py
-│ ├── telegram_service.py
-│ ├── excel_logger.py
-│ ├── state_manager.py
-│ ├── watchdog.py
-│ ├── requirements.txt
-│ │
-│ ├── templates/
-│ │ └── dashboard.html
-│ │
-│ ├── data/
-│ │ ├── state.json
-│ │ └── history.json
-│ │
-│ └── logs/
-│
-├── firmware/
-│ └── esp32-vibration-sensor
-│ └── esp32-vibration-sensor.ino
-│
-├── hardware/
-│ └── wiring-diagram.png (optional)
-│
-└── README.md
-
-
 ---
 
 # Hardware Requirements
@@ -173,8 +115,8 @@ machine-monitoring-system
 Broker example:
 
 
-z9fe19ea.ala.asia-southeast1.emqxsl.com
-port: 8883
+z9fe****.ala.asia-southeast1.emqxsl.com
+port: 888*
 TLS enabled
 
 
@@ -183,44 +125,6 @@ Topic used:
 
 vibration/rms
 
-
----
-
-# Backend Installation
-
-### Clone the repository
-
-
-git clone https://github.com/ronitzhah/machine-monitoring-system.git
-
-
-Enter directory
-
-
-cd machine-monitoring-system/backend
-
-
-Install dependencies
-
-
-pip install -r requirements.txt
-
-
----
-
-# Run the Monitoring Server
-
-
-python app.py
-
-
-Dashboard available at:
-
-
-http://localhost:5000
-
-
----
 
 # ESP32 Firmware Setup
 
@@ -321,5 +225,4 @@ MIT License
 ---
 
 # Author
-
-Developed for Industrial Machine Monitoring using IoT technologies.
+Ronit Shah
