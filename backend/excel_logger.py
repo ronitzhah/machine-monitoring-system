@@ -83,9 +83,10 @@ class ExcelLogger:
                     )
 
                 workbook.save(excel_file)
-                print(f"✅ Excel written: {excel_file} at {datetime.now(APP_TIMEZONE)}")
+                print(f"Excel written: {excel_file} at {datetime.now(APP_TIMEZONE)}")
 
             except Exception as exc:
-                print(f"❌ Excel write error: {exc}")
+                print(f"Excel write error: {exc}")
 
             time.sleep(EXCEL_WRITE_INTERVAL_SECONDS)
+
