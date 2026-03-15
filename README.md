@@ -1,49 +1,38 @@
-# Machine Monitoring System (MQTT + ESP32 + Flask)
+# Machine Monitoring System (ESP32 + MQTT + Flask)
 
-An Industrial IoT machine monitoring system that measures machine vibration using an **ESP32 + ADXL345 sensor**, sends data via **MQTT**, and processes it using a **Python backend** with a **Flask dashboard, Telegram alerts, downtime analytics, and Excel logging**.
+An Industrial IoT machine monitoring system that measures machine vibration using an **ESP32 with an ADXL345 accelerometer**, transmits vibration data via **MQTT**, and processes it using a **Python backend**.  
 
-This system is designed for **factory machines, predictive maintenance, and production monitoring**.
+The system provides a **Flask-based monitoring dashboard**, **Telegram alerts**, **downtime analytics**, and **Excel-based logging** for machine performance analysis.
 
----
-
-# Project Features
-
-### Sensor Firmware (ESP32)
-
-- ADXL345 accelerometer vibration sensing
-- RMS vibration calculation
-- MQTT publishing
-- WiFi auto reconnect
-- MQTT auto reconnect
-- Watchdog reset protection
-- Local WebSocket vibration monitor
-- Built-in web interface for debugging
+This project is designed for **industrial machine monitoring, predictive maintenance, and production analytics in manufacturing environments**.
 
 ---
 
-### Backend Monitoring System
+# System Dashboard
 
-- MQTT vibration monitoring
-- Machine state detection
-  - Working
-  - Idle
-  - Off / Sensor Off
-- Automatic uptime / downtime calculation
-- Downtime reason tracking
-- Flask web dashboard
-- Excel downtime logging
-- JSON state persistence
-- Daily summary reports
-- Machine utilization analytics
-- MTBF calculation
-- Telegram alert system
-- Telegram command interface
+The monitoring dashboard provides real-time visualization of machine vibration and operational status.
+
+<p align="center">
+  <img src="backend/Dashboard1.jpg" width="420">
+  <img src="backend/Dashboard2.png" width="420">
+</p>
+
+The dashboard displays:
+
+- Live vibration values
+- Machine operational status
+- Uptime and downtime
+- Machine utilization percentage
+- Historical machine data
+- Operational analytics
 
 ---
 
-### Telegram Bot Features
+# Telegram Alert System
 
-Commands supported:
+The system integrates a **Telegram bot** to provide real-time alerts and remote monitoring.
+
+Supported commands:
 
 
 /status
@@ -52,9 +41,7 @@ Commands supported:
 /summary
 
 
-Examples:
-
-**/status**
+Example response:
 
 
 Machine Status
@@ -62,47 +49,38 @@ Vibration: 1.34 m/s²
 Status: Machine Working
 
 
-**/download**
+Telegram interface examples:
 
-Downloads the Excel downtime report.
-
----
-
-# Dashboard Features
-
-The web dashboard displays:
-
-- Live vibration value
-- Machine state
-- Total uptime
-- Total downtime
-- Utilization %
-- MTBF
-- Average downtime
-- Longest downtime
-- Reason completion rate
-- Status breakdown
-
-Tabs include:
-
-
-Home
-Downtime Logs
-History
+<p align="center">
+  <img src="backend/telegram bot1.jpg" width="350">
+  <img src="backend/telegram bot2.jpg" width="350">
+</p>
 
 ---
 
-# Hardware Requirements
+# Hardware Setup
 
-- ESP32
+The monitoring device is built using an ESP32 microcontroller and an ADXL345 vibration sensor.
+
+<p align="center">
+  <img src="backend/esp32&sensor.jpg" width="350">
+  <img src="backend/pcb.jpg" width="350">
+  <img src="backend/enclosure.jpg" width="350">
+</p>
+
+## Components
+
+- ESP32 Development Board
 - ADXL345 Accelerometer
 - Jumper wires
 - Power supply
 
-### Wiring
+---
+
+# Wiring Configuration
 
 | ADXL345 | ESP32 |
-|-------|------|
+|--------|------|
 | VCC | 3.3V |
 | GND | GND |
 | SDA | GPIO21 |
@@ -110,14 +88,101 @@ History
 
 ---
 
+# System Architecture
+
+The system follows an IoT-based monitoring architecture:
+
+
+ADXL345 Sensor
+│
+▼
+ESP32 Microcontroller
+│
+▼
+MQTT Broker
+│
+▼
+Python Backend (Flask)
+│
+├── Web Dashboard
+├── Excel Logging
+└── Telegram Alerts
+
+
+---
+
+# ESP32 Firmware Features
+
+The ESP32 firmware performs real-time vibration monitoring and reliable data transmission.
+
+Features include:
+
+- ADXL345 vibration sensing
+- RMS vibration calculation
+- MQTT data publishing
+- Automatic WiFi reconnection
+- Automatic MQTT reconnection
+- Watchdog reset protection
+- Local WebSocket vibration monitor
+- Built-in debugging web interface
+
+---
+
+# Backend Monitoring System
+
+The Python backend processes vibration data and provides machine monitoring analytics.
+
+Features include:
+
+- Real-time MQTT vibration monitoring
+- Machine state detection:
+  - Working
+  - Idle
+  - Off / Sensor Offline
+- Automatic uptime and downtime calculation
+- Downtime reason tracking
+- Flask web dashboard
+- Excel-based downtime logging
+- JSON state persistence
+- Daily analytics reports
+- Machine utilization calculation
+- MTBF (Mean Time Between Failures)
+- Telegram alert integration
+- Telegram command interface
+
+---
+
+# Machine Logs
+
+The system automatically records machine activity and downtime events for analysis.
+
+<p align="center">
+  <img src="backend/log1.png" width="400">
+  <img src="backend/log2.jpg" width="400">
+</p>
+
+Logs are saved in:
+
+
+backend/logs/
+
+
+Example log file:
+
+
+downtime_2026-03-10.xlsx
+
+
+---
+
 # MQTT Configuration
 
-Broker example:
+Example MQTT broker configuration:
 
 
-z9fe****.ala.asia-southeast1.emqxsl.com
-port: 888*
-TLS enabled
+Broker: z9fe****.ala.asia-southeast1.emqxsl.com
+Port: 888*
+TLS: Enabled
 
 
 Topic used:
@@ -126,13 +191,11 @@ Topic used:
 vibration/rms
 
 
+---
+
 # ESP32 Firmware Setup
 
-Open the firmware in **Arduino IDE**:
-
-
-firmware/esp32-vibration-sensor/esp32-vibration-sensor.ino
-
+Open the firmware using **Arduino IDE**.
 
 Install required libraries:
 
@@ -142,81 +205,85 @@ Install required libraries:
 - ESPAsyncWebServer
 - AsyncTCP
 
-Upload firmware to ESP32.
+Upload the firmware to the ESP32 board.
 
 ---
 
-# Excel Logging
+# Backend Setup
 
-Downtime logs are automatically saved in:
-
-
-backend/logs/
+Install Python dependencies:
 
 
-Example:
+pip install -r backend/requirements.txt
 
 
-downtime_2026-03-10.xlsx
+Run the backend server:
+
+
+python backend/app.py
+
+
+The dashboard will be available at:
+
+
+http://localhost:5000
 
 
 ---
 
 # Daily Analytics
 
-Every day the system generates:
+The system automatically generates daily machine analytics including:
 
-- Daily machine utilization
+- Machine utilization
 - MTBF
 - Average downtime
 - Longest downtime
-- Most common downtime reason
+- Most frequent downtime reason
 
-And sends a **Telegram summary message**.
+A daily summary report is also sent via **Telegram**.
 
 ---
 
 # Watchdog Protection
 
-System includes:
+The system includes reliability mechanisms to prevent system failures.
 
 ### ESP32 Watchdog
-
-Automatically resets the ESP32 if firmware freezes.
+Automatically resets the ESP32 if the firmware becomes unresponsive.
 
 ### Backend Watchdog
-
-Restarts the backend if MQTT data becomes stale.
+Restarts the monitoring backend if MQTT data becomes stale.
 
 ---
 
 # Security Notes
 
-Before making this repository public:
+Before making the repository public, remove sensitive information such as:
 
-Remove or replace:
+- WiFi credentials
+- MQTT credentials
+- Telegram bot tokens
 
-
-WiFi credentials
-MQTT credentials
-Telegram bot token
-
-
-Use environment variables instead.
+Use **environment variables** or configuration files instead.
 
 ---
 
-# Possible Future Improvements
+# Future Improvements
+
+Potential future enhancements:
 
 - OTA firmware updates
 - Docker deployment
-- Grafana vibration dashboard
-- Prometheus metrics
+- Grafana monitoring dashboard
+- Prometheus metrics integration
 - Multi-machine monitoring
 - Cloud deployment
-- Predictive maintenance ML models
+- Predictive maintenance using machine learning
 
 ---
 
 # Author
-Ronit Shah
+
+**Ronit Shah**  
+Mechatronics & Automation Engineer 
